@@ -1,0 +1,18 @@
+<% # Service - Type (inet,unix,fifo) - Private (y/n) - Un-privileged (y/n) - Chrooted (y/n) - wakeup (int) - Max Processes (int) - Command
+def print_boolean(variable)
+	if not defined? variable then
+		'-'
+	elsif variable == true then
+		'y'
+	else
+		'n'
+	end
+end
+def print_integer(variable)
+	if not (defined? variable and variable) then
+		'-'
+	else
+		variable.to_s
+	end
+end
+%><%= @service_name %>	<%= @service_type %>	<%= print_boolean @private %>	<%= print_boolean @unpriv %>	<%= print_boolean @chroot %>	<%= print_integer @wakeup %>	<%= print_integer @max_proc %>	<%= @command %>

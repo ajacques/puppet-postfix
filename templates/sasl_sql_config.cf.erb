@@ -1,0 +1,10 @@
+pwcheck_method: auxprop
+auxprop_plugin: sql
+sql_engine: mysql
+mech_list: <%= @mechanisms %>
+sql_hostnames: <%= @sql_hostname %>
+sql_user: <%= @sql_username %>
+sql_passwd: <%= @sql_password %>
+sql_database: <%= @sql_database %>
+sql_verbose: no
+sql_select: <%= @sql_select_query %>
