@@ -1,18 +1,26 @@
-class postfix {
+class postfix (
+	$ensure = 'present'
+) {
 	package {'postfix':
-		ensure => installed,
+		ensure => $ensure,
 	}
 	package {'postfix-mysql':
-		ensure => installed
+		ensure => $ensure
 	}
 	class {'postfix::config':
 		require => Package['postfix'],
-		notify => Service['postfix']
+		notify => Exec['postfix-reload']
 	}
 
 	class {'postfix::main_ports':
 		require => Package['postfix'],
-		notify => Service['postfix']
+		notify => Exec['postfix-reload']
+	}
+
+	exec {'postfix-reload':
+		command => '/usr/bin/env postfix reload',
+		refreshonly => true,
+		require => Service['postfix']
 	}
 
 	service {'postfix':

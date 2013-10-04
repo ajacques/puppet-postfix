@@ -53,4 +53,14 @@ class postfix::config (
 		mode => '0400',
 		require => Exec['postfix-generate-1024bit-dh-param']
 	}
+
+	postfix::config::parameter {'postfix-ssl-private-key':
+		variable => 'smtpd_tls_key_file',
+		content => $::postfix_tls_key_path
+	}
+
+	postfix::config::parameter {'postfix-ssl-public-key':
+		variable => 'smtpd_tls_cert_file',
+		content => $::postfix_tls_cert_path
+	}
 }

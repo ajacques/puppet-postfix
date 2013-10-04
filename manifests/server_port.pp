@@ -10,6 +10,7 @@ define postfix::server_port (
 ) {
 	concat::fragment {"master_cf_block_001_$name":
 		target => '/etc/postfix/master.cf',
-		content => template('postfix/master_block.cf.erb')
+		content => template('postfix/master_block.cf.erb'),
+		notify => Exec['postfix-reload']
 	}
 }

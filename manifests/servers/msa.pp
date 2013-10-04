@@ -15,4 +15,13 @@ class postfix::servers::msa {
 		filename => 'main.cf',
 		content => template('postfix/sasl_config_block.cf.erb')
 	}
+
+	if defined(Class['iptables']) {
+		iptables::rule { 'allow-submission-in':
+			chain => 'NEWCONNS',
+			destination_port => ['587'],
+			protocol => 'tcp',
+			action => 'ACCEPT',
+		}
+	}
 }
