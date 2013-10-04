@@ -14,7 +14,7 @@ define postfix::config::sasl_sql_config (
 		group => 'root',
 		mode => '0440',
 		require => $require,
-		notify => Service['postfix'],
+		notify => Exec['postfix-reload'],
 		content => template('postfix/sasl_sql_config.cf.erb')
 	}
 }
