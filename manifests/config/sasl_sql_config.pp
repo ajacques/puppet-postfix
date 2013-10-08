@@ -1,5 +1,6 @@
 define postfix::config::sasl_sql_config (
 	$file_name = undef,
+	$sql_engine = undef,
 	$sql_hostname = undef,
 	$sql_database = undef,
 	$sql_username = undef,
@@ -14,7 +15,7 @@ define postfix::config::sasl_sql_config (
 		group => 'root',
 		mode => '0440',
 		require => $require,
-		notify => Exec['postfix-reload'],
+		notify => $notify,
 		content => template('postfix/sasl_sql_config.cf.erb')
 	}
 }
