@@ -30,7 +30,7 @@ class postfix::config (
 	# Generates the Diffie-Hellman parameter files
 	# See http://www.postfix.org/TLS_README.html#server_tls for more information
 	exec {'postfix-generate-512bit-dh-param':
-		command => "/usr/bin/openssl gendh -out ${config_dir}/dh_512.pem",
+		command => "/usr/bin/openssl gendh -out ${config_dir}/dh_512.pem 512",
 		unless => "/usr/bin/test -f ${config_dir}/dh_512.pem",
 		require => [
 			File[$config_dir]
@@ -38,7 +38,7 @@ class postfix::config (
 	}
 
 	exec {'postfix-generate-1024bit-dh-param':
-		command => "/usr/bin/openssl gendh -out ${config_dir}/dh_1024.pem",
+		command => "/usr/bin/openssl gendh -out ${config_dir}/dh_1024.pem 1024",
 		unless => "/usr/bin/test -f ${config_dir}dh_512.pem",
 		require => [
 			File[$config_dir]
