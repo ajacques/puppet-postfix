@@ -1,7 +1,8 @@
 class postfix::master_cf (
-	$require = undef
+	$require = undef,
+	$file_path = "${postfix::config::config_dir}/master.cf"
 ) {
-	concat {'/etc/postfix/master.cf':
+	concat {$file_path:
 		owner => 'root',
 		group => 'root',
 		mode => '0444',
@@ -9,7 +10,7 @@ class postfix::master_cf (
 	}
 
 	concat::fragment {"master_cf_block_000_header":
-		target => '/etc/postfix/master.cf',
+		target => $file_path,
 		content => template('postfix/master.cf.erb')
 	}
 }
