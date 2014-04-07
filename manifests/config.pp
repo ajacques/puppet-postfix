@@ -55,6 +55,20 @@ class postfix::config (
 		require => Exec['postfix-generate-1024bit-dh-param']
 	}
 
+	if ($postfix::custom_master) {
+		concat::fragment {'postfix-custom-master':
+			target => "${config_dir}/master.cf",
+			source => $postfix::custom_master
+		}
+	}
+	
+	if ($postfix::custom_main) {
+		concat::fragment {'postfix-custom-main':
+			target => "${config_dir}/main.cf",
+			source => $postfix::custom_main
+		}
+	}
+
 	if ($postfix::ssl_install_certificate) {
 		file {"${config_dir}/ssl-certificate.pem":
 			source => $postfix::ssl_source_path
