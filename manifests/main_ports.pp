@@ -146,4 +146,12 @@ class postfix::main_ports (
 		max_proc => 1,
 		command => 'anvil',
 	}
+
+	postfix::server_port {'postfix_virtual':
+		service_name => 'virtual',
+		service_type => 'unix',
+		unpriv => false,
+		chroot => false,
+		command => 'virtual'
+	}
 }
