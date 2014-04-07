@@ -8,9 +8,13 @@ define postfix::server_port (
 	$max_proc = undef,
 	$command = undef
 ) {
-	concat::fragment {"master_cf_block_001_$name":
+	concat::fragment {"master_cf_block_001_${name}_01":
 		target => '/etc/postfix/master.cf',
 		content => template('postfix/master_block.cf.erb'),
 		notify => Exec['postfix-reload']
+	}
+	concat::fragment {"master_cf_block_001_${name}_99":
+		target => '/etc/postfix/master.cf',
+		content => "\n",
 	}
 }

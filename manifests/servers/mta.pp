@@ -6,13 +6,6 @@ class postfix::servers::mta {
 		content => template('postfix/main_smtp_client.cf.erb')
 	}
 
-	postfix::server_port {'postfix_smtp':
-		service_name => 'smtp',
-		service_type => 'inet',
-		command => 'smtpd',
-		private => false
-	}
-
 	postfix::server_port {'smtps':
 		service_name => 'smtps',
 		service_type => 'inet',

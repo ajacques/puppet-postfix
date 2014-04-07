@@ -22,7 +22,7 @@ class postfix (
 	}
 
 	exec {'postfix-reload':
-		command => '/usr/bin/env postfix reload',
+		command => '/usr/bin/env echo /usr/bin/env postfix reload',
 		refreshonly => true,
 		require => Service['postfix']
 	}

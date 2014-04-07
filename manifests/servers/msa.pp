@@ -7,6 +7,14 @@ class postfix::servers::msa {
 		command => 'smtpd -o smtpd_sender_restrictions=permit_mynetworks,permit_sasl_authenticated,reject -o milter_macro_daemon_name=ORIGINATING -o content_filter='
 	}
 
+	postfix::server_port {'postfix_smtpd':
+		service_name => 'smtp',
+		service_type => 'inet',
+		command => 'smtpd',
+		private => false
+	}
+
+
 	class {'postfix::smtpd_server':
 		
 	}
