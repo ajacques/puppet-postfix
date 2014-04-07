@@ -1,5 +1,7 @@
 class postfix (
-	$ensure = 'present'
+	$ensure = 'present',
+	$ssl_install_certificate = false,
+	$ssl_source_path = undef,
 ) {
 	package {'postfix':
 		ensure => $ensure,

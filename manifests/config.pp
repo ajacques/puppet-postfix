@@ -55,13 +55,19 @@ class postfix::config (
 		require => Exec['postfix-generate-1024bit-dh-param']
 	}
 
-	postfix::config::parameter {'postfix-ssl-private-key':
-		variable => 'smtpd_tls_key_file',
-		content => $::postfix_tls_key_path
-	}
+	if ($postfix::ssl_install_certificate) {
+		file {"${config_dir}/ssl-certificate.pem":
+			source => $postfix::ssl_source_path
+		}
 
-	postfix::config::parameter {'postfix-ssl-public-key':
-		variable => 'smtpd_tls_cert_file',
-		content => $::postfix_tls_cert_path
+		postfix::config::parameter {'postfix-ssl-key':
+			variable => 'smtpd_tls_cert_file',
+			content => "${config_dir}/ssl-certificate.pem"
+		}
+	} else {
+		postfix::config::parameter {'postfix-ssl-public-key':
+			variable => 'smtpd_tls_cert_file',
+			content => $::postfix_tls_key_path
+		}
 	}
 }
