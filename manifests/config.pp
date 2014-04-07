@@ -39,7 +39,7 @@ class postfix::config (
 
 	exec {'postfix-generate-1024bit-dh-param':
 		command => "/usr/bin/openssl gendh -out ${config_dir}/dh_1024.pem 1024",
-		unless => "/usr/bin/test -f ${config_dir}dh_512.pem",
+		unless => "/usr/bin/test -f ${config_dir}/dh_1024.pem",
 		require => [
 			File[$config_dir]
 		]
