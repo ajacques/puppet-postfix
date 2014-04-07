@@ -114,7 +114,7 @@ class postfix::main_ports (
 	postfix::server_port {'postfix_retry':
 		service_name => 'retry',
 		service_type => 'unix',
-		command => 'retry',
+		command => 'error',
 	}
 
 	postfix::server_port {'postfix_discard':
