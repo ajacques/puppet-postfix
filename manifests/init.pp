@@ -38,7 +38,7 @@ class postfix (
 	if defined(Class['monit']) {
 		monit::service_monitor {'monit_postfix_srv':
 			service_name => 'postfix',
-			pid_file => 'postfix.pid',
+			pid_file => '/var/spool/postfix/pid/master.pid',
 			start_path => '/etc/init.d/postfix start',
 			stop_path => '/etc/init.d/postfix stop',
 			max_restarts => 3,
