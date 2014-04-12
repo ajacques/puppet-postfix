@@ -9,12 +9,12 @@ define postfix::server_port (
 	$command = undef
 ) {
 	concat::fragment {"master_cf_block_001_${name}_01":
-		target => '/etc/postfix/master.cf',
+		target => "${postfix::config::config_dir}/master.cf",
 		content => template('postfix/master_block.cf.erb'),
 		notify => Exec['postfix-reload']
 	}
 	concat::fragment {"master_cf_block_001_${name}_99":
-		target => '/etc/postfix/master.cf',
+		target => "${postfix::config::config_dir}/master.cf",
 		content => "\n",
 	}
 }

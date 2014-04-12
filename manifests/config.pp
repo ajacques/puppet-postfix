@@ -1,7 +1,8 @@
 class postfix::config (
 	$require = undef,
 	$notify = undef,
-	$config_dir = '/etc/postfix'
+	$config_dir = '/etc/postfix',
+	$ensure = present
 ) {
 	File {
 		owner => 'root',

@@ -1,9 +1,10 @@
 class postfix (
-	$ensure = 'present',
+	$ensure = present,
 	$ssl_install_certificate = false,
 	$ssl_source_path = undef,
 	$custom_master = undef,
-	$custom_main = undef
+	$custom_main = undef,
+	$mynetworks = ''
 ) {
 	package {'postfix':
 		ensure => $ensure,
@@ -13,7 +14,8 @@ class postfix (
 	}
 	class {'postfix::config':
 		require => Package['postfix'],
-		notify => Exec['postfix-reload']
+		notify => Exec['postfix-reload'],
+		ensure => $ensure
 	}
 
 	class {'postfix::main_ports':
