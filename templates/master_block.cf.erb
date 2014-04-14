@@ -1,9 +1,7 @@
 <% # Service - Type (inet,unix,fifo) - Private (y/n) - Un-privileged (y/n) - Chrooted (y/n) - wakeup (int) - Max Processes (int) - Command
 def print_boolean(variable)
-	if not defined? variable then
+	if variable then
 		'-'
-	elsif variable == true then
-		'y'
 	else
 		'n'
 	end
