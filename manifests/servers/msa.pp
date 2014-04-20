@@ -11,7 +11,8 @@ class postfix::servers::msa {
 		service_name => 'smtp',
 		service_type => 'inet',
 		command => 'smtpd',
-		private => false
+		private => false,
+		chroot => false
 	}
 
 
