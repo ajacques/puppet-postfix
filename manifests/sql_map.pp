@@ -4,8 +4,6 @@ define postfix::sql_map (
 	$hosts = undef,
 	$dbname = undef,
 	$query = undef,
-	$require = undef,
-	$notify = undef
 ) {
 	file {"/etc/postfix/${name}.cf":
 		ensure => file,
@@ -13,7 +11,6 @@ define postfix::sql_map (
 		group => 'root',
 		mode => '0440',
 		content => template('postfix/sql_map.cf.erb'),
-		require => $require,
-		notify => $notify
+		notify => Exec['postfix-reload']
 	}
 }
