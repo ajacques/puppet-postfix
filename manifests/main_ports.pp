@@ -24,6 +24,12 @@ class postfix::main_ports (
 		command => 'qmgr',
 	}
 
+	postfix::server_port {'postfix_lmtp':
+		service_name => 'lmtp',
+		service_type => 'unix',
+		command => 'lmtp'
+	}
+
 	postfix::server_port {'postfix_tlsmgr':
 		service_name => 'tlsmgr',
 		service_type => 'unix',
