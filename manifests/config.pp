@@ -72,7 +72,8 @@ class postfix::config (
 
 	if ($postfix::ssl_install_certificate) {
 		file {"${config_dir}/ssl-certificate.pem":
-			source => $postfix::ssl_source_path
+			source => $postfix::ssl_source_path,
+			notify => Exec['postfix-reload']
 		}
 
 		postfix::config::parameter {'postfix-ssl-key':

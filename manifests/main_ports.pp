@@ -160,4 +160,14 @@ class postfix::main_ports (
 		chroot => false,
 		command => 'virtual'
 	}
+
+	postfix::server_port {'pickup':
+		service_name => 'pickup',
+		service_type => 'fifo',
+		wakeup => 60,
+		max_proc => 1,
+		private => false,
+		command => 'pickup'
+	}
+
 }
