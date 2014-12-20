@@ -2,7 +2,8 @@ class postfix::config (
 	$require = undef,
 	$notify = undef,
 	$config_dir = '/etc/postfix',
-	$ensure = present
+	$ensure = present,
+	$ssl_cert_local_path = $::postfix_tls_key_path
 ) {
 	File {
 		owner => 'root',
@@ -80,10 +81,21 @@ class postfix::config (
 			variable => 'smtpd_tls_cert_file',
 			content => "${config_dir}/ssl-certificate.pem"
 		}
+
+		concat::fragment {'postfix-smtpd-ssl':
+			target => "${config_dir}/main.cf",
+			content => template("postfix/smtpd_ssl.cf.erb")
+		}
 	} else {
-		postfix::config::parameter {'postfix-ssl-public-key':
-			variable => 'smtpd_tls_cert_file',
-			content => $::postfix_tls_key_path
+		if ($ssl_cert_local_path) {
+			postfix::config::parameter {'postfix-ssl-public-key':
+				variable => 'smtpd_tls_cert_file',
+				content => $::postfix_tls_key_path
+			}
+			concat::fragment {'postfix-smtpd-ssl':
+				target => "${config_dir}/main.cf",
+				content => template("postfix/smtpd_ssl.cf.erb")
+			}
 		}
 	}
 }
