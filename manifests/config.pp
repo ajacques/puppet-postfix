@@ -90,7 +90,7 @@ class postfix::config (
 		if ($ssl_cert_local_path) {
 			postfix::config::parameter {'postfix-ssl-public-key':
 				variable => 'smtpd_tls_cert_file',
-				content => $::postfix_tls_key_path
+				content => $ssl_cert_local_path
 			}
 			concat::fragment {'postfix-smtpd-ssl':
 				target => "${config_dir}/main.cf",
