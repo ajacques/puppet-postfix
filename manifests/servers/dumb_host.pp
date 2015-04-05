@@ -29,6 +29,11 @@ class postfix::servers::dumb_host (
 			notify => Exec['postfix_relay_password_postmap'],
 			content => "${relay_host} ${username}:${password}"
 		}
+
+		postfix::cf_property {'posfix_sasl_security_options':
+			variable => 'smtp_sasl_security_options',
+			value => ''
+		}
 	}
 
 	if defined(Class['iptables']) {
