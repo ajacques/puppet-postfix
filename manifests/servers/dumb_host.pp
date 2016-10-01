@@ -39,6 +39,7 @@ class postfix::servers::dumb_host (
 	if defined(Class['iptables']) {
 		iptables::rule { 'allow-submission-out':
 			chain => 'TCP_OUT',
+			table => 'filter',
 			destination_port => ['submission'],
 			protocol => 'tcp',
 			action => 'ACCEPT',

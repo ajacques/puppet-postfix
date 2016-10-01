@@ -37,6 +37,12 @@ class postfix::servers::mta {
 		content => 'reject_non_fqdn_recipient'
 	}
 
+	postfix::config::parameter_list {'smtpd_permit_whitelist':
+        variable => 'smtpd_recipient_restrictions',
+        order => '013',
+        content => 'check_client_access hash:/etc/postfix/client_whitelist'
+    }
+
 	postfix::config::parameter_list {'smtpd_permit':
 		variable => 'smtpd_recipient_restrictions',
 		order => '999',
@@ -46,12 +52,14 @@ class postfix::servers::mta {
 	if defined(Class['iptables']) {
 		iptables::rule { 'allow-smtp-in':
 			chain => 'NEWCONNS',
+			table => 'filter',
 			destination_port => ['25'],
 			protocol => 'tcp',
 			action => 'ACCEPT',
 		}
 		iptables::rule { 'allow-smtp-out':
 			chain => 'TCP_OUT',
+			table => 'filter',
 			destination_port => ['25'],
 			protocol => 'tcp',
 			action => 'ACCEPT',
