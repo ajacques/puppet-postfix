@@ -55,6 +55,7 @@ class postfix::servers::mta {
 			destination_port => ['25'],
 			protocol => 'tcp',
 			action => 'ACCEPT',
+			raw => '-m owner --uid-owner postfix'
 		}
 	}
 }

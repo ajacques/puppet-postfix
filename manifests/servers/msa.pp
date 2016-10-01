@@ -31,6 +31,7 @@ class postfix::servers::msa {
 			destination_port => ['587'],
 			protocol => 'tcp',
 			action => 'ACCEPT',
+			order => 30
 		}
 	}
 }
