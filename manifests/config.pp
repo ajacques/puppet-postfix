@@ -74,7 +74,7 @@ class postfix::config (
 	if ($postfix::ssl_certificate_path) {
 		postfix::config::parameter {'postfix-ssl-key':
 			variable => 'smtpd_tls_cert_file',
-			content => ssl_certificate_path
+			content => $ssl_certificate_path
 		}
 
 		concat::fragment {'postfix-smtpd-ssl':
