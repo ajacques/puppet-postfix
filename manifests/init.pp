@@ -1,7 +1,6 @@
 class postfix (
 	$ensure = present,
-	$ssl_install_certificate = false,
-	$ssl_source_path = undef,
+	$ssl_certificate_path = undef,
 	$custom_master = undef,
 	$custom_main = undef,
 	$mynetworks = ''

@@ -71,15 +71,10 @@ class postfix::config (
 		}
 	}
 
-	if ($postfix::ssl_install_certificate) {
-		file {"${config_dir}/ssl-certificate.pem":
-			source => $postfix::ssl_source_path,
-			notify => Exec['postfix-reload']
-		}
-
+	if ($postfix::ssl_certificate_path) {
 		postfix::config::parameter {'postfix-ssl-key':
 			variable => 'smtpd_tls_cert_file',
-			content => "${config_dir}/ssl-certificate.pem"
+			content => ssl_certificate_path
 		}
 
 		concat::fragment {'postfix-smtpd-ssl':
