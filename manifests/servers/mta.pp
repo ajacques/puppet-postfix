@@ -6,13 +6,6 @@ class postfix::servers::mta {
 		content => template('postfix/main_smtp_client.cf.erb')
 	}
 
-	postfix::server_port {'smtps':
-		service_name => 'smtps',
-		service_type => 'inet',
-		command => 'smtpd -o smtpd_tls_wrappermode=yes',
-		private => false
-	}
-
 	postfix::config::parameter_list {'smtpd_permit_mynetworks':
 		variable => 'smtpd_recipient_restrictions',
 		order => '001',

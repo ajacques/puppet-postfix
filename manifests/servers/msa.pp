@@ -15,6 +15,14 @@ class postfix::servers::msa {
 		chroot => false
 	}
 
+	postfix::server_port {'smtps':
+		service_name => 'smtps',
+		service_type => 'inet',
+		command => 'smtpd -o smtpd_tls_wrappermode=yes',
+		private => false,
+		chroot => false
+	}
+
 
 	class {'postfix::smtpd_server':
 		
