@@ -3,7 +3,6 @@ class postfix::servers::msa {
 		service_name => 'submission',
 		service_type => 'inet',
 		private => false,
-		chroot => false, # Needs access to MySQL sockets. Can we use TCP?
 		command => 'smtpd -o smtpd_sender_restrictions=permit_mynetworks,permit_sasl_authenticated,reject -o milter_macro_daemon_name=ORIGINATING -o content_filter='
 	}
 
@@ -11,21 +10,17 @@ class postfix::servers::msa {
 		service_name => 'smtp',
 		service_type => 'inet',
 		command => 'smtpd',
-		private => false,
-		chroot => false
+		private => false
 	}
 
 	postfix::server_port {'smtps':
 		service_name => 'smtps',
 		service_type => 'inet',
 		command => 'smtpd -o smtpd_tls_wrappermode=yes',
-		private => false,
-		chroot => false
+		private => false
 	}
 
-
 	class {'postfix::smtpd_server':
-		
 	}
 
 	postfix::cf_block {'postfix_sasl':

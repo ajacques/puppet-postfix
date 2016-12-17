@@ -25,7 +25,7 @@ class postfix::servers::dumb_host (
 		file {"${postfix::config::config_dir}/relay_password":
 			owner => 'root',
 			group => 'root',
-			mode => '400',
+			mode => '0400',
 			notify => Exec['postfix_relay_password_postmap'],
 			content => "${relay_host} ${username}:${password}"
 		}
